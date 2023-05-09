@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">SorteioFacil</string>
     <string name="placeholder_textField">Digite nº entre 6 e 15</string>
+    <string name="textField_result">RESULTADO AQUI</string>
     <string name="text_button">SORTEAR</string>
     <string name="text_name_developer">Developed by J. Santos</string>
 </resources>
