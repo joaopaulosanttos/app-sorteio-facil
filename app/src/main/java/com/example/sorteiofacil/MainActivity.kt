@@ -28,7 +28,7 @@ class MainActivity : AppCompatActivity() {
         val resultDb = dbPreferences.getString("result", null)
         if (resultDb != null) {
             textViewResult.text = "Última aposta realizada: $resultDb"
-            textViewResult.setTextColor(Color.parseColor("#0059FF"))
+            colorButton(textViewResult)
         } else {
             textViewResult.text = "resultado aqui!"
         }
@@ -73,10 +73,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         textResult.text = listNumers.joinToString(" - ")
+        colorButton(textResult)
+
 
         val editor = dbPreferences.edit()
         editor.putString("result", textResult.text.toString())
         editor.apply()
+    }
+
+    fun colorButton(textResult: TextView) {
+        textResult.setTextColor(Color.parseColor("#0059FF"))
     }
 
 }
