@@ -1,5 +1,8 @@
 package com.example.sorteiofacil
 
+import android.content.Context
+import android.content.SharedPreferences
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -11,6 +14,8 @@ import kotlin.random.Random
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var dbPreferences: SharedPreferences
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,6 +23,15 @@ class MainActivity : AppCompatActivity() {
         val editTextFieldNumbers: EditText = findViewById(R.id.edit_field_numbers)
         val textViewResult: TextView = findViewById(R.id.text_view_result)
         val buttonGenerate: Button = findViewById(R.id.btn_generate)
+
+        dbPreferences = getSharedPreferences("db", Context.MODE_PRIVATE)
+        val resultDb = dbPreferences.getString("result", null)
+        if (resultDb != null) {
+            textViewResult.text = "Última aposta realizada: $resultDb"
+            textViewResult.setTextColor(Color.parseColor("#0059FF"))
+        } else {
+            textViewResult.text = "resultado aqui!"
+        }
 
         buttonGenerate.setOnClickListener {
             val text = editTextFieldNumbers.text.toString()
@@ -60,6 +74,9 @@ class MainActivity : AppCompatActivity() {
 
         textResult.text = listNumers.joinToString(" - ")
 
+        val editor = dbPreferences.edit()
+        editor.putString("result", textResult.text.toString())
+        editor.apply()
     }
 
 }
